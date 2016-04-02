@@ -13,16 +13,16 @@ case "$1" in
         ;;
     "set")
         if [ "$2" -ge 0 -a "$2" -le 9 ]; then
-            export LAST_CONTAINER_ID=`docker ps -q | sed -n $(($2+1))p`
+            export CURRENT_CONTAINER_ID=`docker ps -q | sed -n $(($2+1))p`
         else
-            export LAST_CONTAINER_ID="$2"
+            export CURRENT_CONTAINER_ID="$2"
         fi
 
         echo $CURRENT_CONTAINER_ID
         return
         ;;
     "unset")
-        export LAST_CONTAINER_ID=""
+        export CURRENT_CONTAINER_ID=""
         return
         ;;
     "logs")
@@ -32,7 +32,7 @@ case "$1" in
         fi
         ;;
     "run")
-        export LAST_CONTAINER_ID=`$DOCKER_CLI "$@"`
+        export CURRENT_CONTAINER_ID=`$DOCKER_CLI "$@"`
         echo $CURRENT_CONTAINER_ID
         return
         ;;
