@@ -4,7 +4,7 @@ DOCKER_CLI=`(which docker)`
 DOCKERIM_CACHE_FILE="$HOME/.dockerim"
 
 function saveId {
-    echo "$CURRENT_CONTAINER_ID" > $DOCKERIM_CACHE_FILE
+    echo -n "$CURRENT_CONTAINER_ID" > $DOCKERIM_CACHE_FILE
 }
 
 if [ -e $DOCKERIM_CACHE_FILE ]; then
@@ -56,9 +56,7 @@ case "$1" in
         exit 0
         ;;
     "current")
-        if [ -z $CURRENT_CONTAINER_ID ]; then
-            echo "No current container. use 'docker set <num|id>' or 'docker run ...' to set"
-        else
+        if [ ! -z $CURRENT_CONTAINER_ID ]; then
             echo $CURRENT_CONTAINER_ID
         fi
         exit 0
