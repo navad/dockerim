@@ -7,14 +7,15 @@
 Install on OSX using Homebrew:
 
 ```
-brew install dockerim
+brew install https://raw.github.com/navad/dockerim/master/dockerim.rb --HEAD
 ```
 
-After installation, `dockerim` would be available as a shell command. 
+After installation, `dockerim` would be available as a shell command.
+
 For improved experience, Add `dockerim` as an alias to `docker` in your `.bashrc`/`.bash_profile`:
 
 ```
-alias docker="source dockerim"
+alias docker="dockerim"
 ```
 
 ## Usage

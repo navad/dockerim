@@ -1,6 +1,15 @@
 #!/bin/bash
 
 DOCKER_CLI=`(which docker)`
+DOCKERIM_CACHE_FILE="$HOME/.dockerim"
+
+function saveId {
+    echo "$CURRENT_CONTAINER_ID" > $DOCKERIM_CACHE_FILE
+}
+
+if [ -e $DOCKERIM_CACHE_FILE ]; then
+    CURRENT_CONTAINER_ID=`(cat $DOCKERIM_CACHE_FILE)`
+fi
 
 case "$1" in
     "bash")
@@ -9,7 +18,7 @@ case "$1" in
         else
             $DOCKER_CLI exec -it "$2" bash
         fi
-        return
+        exit 0
         ;;
     "set")
         if [ "$2" -ge 0 -a "$2" -le 9 ]; then
@@ -19,36 +28,32 @@ case "$1" in
         fi
 
         echo $CURRENT_CONTAINER_ID
-        return
+        saveId
+        exit 0
         ;;
     "unset")
         export CURRENT_CONTAINER_ID=""
-        return
+        saveId
+        exit 0
         ;;
-    "logs")
+    "logs"|"kill")
         if [ -z "$2" ]; then
-            $DOCKER_CLI logs $CURRENT_CONTAINER_ID
-            return
+            set -- "$1" "$CURRENT_CONTAINER_ID"
         fi
         ;;
     "run")
         export CURRENT_CONTAINER_ID=`$DOCKER_CLI "$@"`
         echo $CURRENT_CONTAINER_ID
-        return
-        ;;
-    "kill")
-        if [ -z "$2" ]; then
-            $DOCKER_CLI kill $CURRENT_CONTAINER_ID
-            return
-        fi
+        saveId
+        exit 0
         ;;
     "killall")
         $DOCKER_CLI kill `($DOCKER_CLI ps -q)`
-        return
+        exit 0
         ;;
     "rmall")
         $DOCKER_CLI rm `($DOCKER_CLI ps -q -a)`
-        return
+        exit 0
         ;;
     "current")
         if [ -z $CURRENT_CONTAINER_ID ]; then
@@ -56,7 +61,7 @@ case "$1" in
         else
             echo $CURRENT_CONTAINER_ID
         fi
-        return
+        exit 0
         ;;
     "help" | "")
         echo "dockerim: docker IMproved (v0.1)"
