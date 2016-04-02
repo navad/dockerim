@@ -36,7 +36,7 @@ case "$1" in
         saveId
         exit 0
         ;;
-    "logs"|"kill")
+    "logs"|"kill"|"rm")
         if [ -z "$2" ]; then
             set -- "$1" "$CURRENT_CONTAINER_ID"
         fi
@@ -64,27 +64,20 @@ case "$1" in
         exit 0
         ;;
     "help" | "")
-        echo "dockerim: docker IMproved (v0.1)"
+        $DOCKER_CLI help
         echo
-        echo "Usage:"
-        echo "   dockerim set <ps index | container id> / docker run ..."
-        echo "       Sets current container. ex: 'docker set 0' will set the current container to the first one on PS"
+        echo -e "dockerim (v0.1) commands:"
+        echo -e "    set <id|index>\tSets current container"
+        echo -e "    unset\t\tClears current container"
+        echo -e "    logs\t\tPrint current container logs"
+        echo -e "    kill/rm\t\tKills/Remove current container"
+        echo -e "    killall/rmall\tKills/Removes ALL containers"
+        echo -e "    current\t\tPrints current container id"
         echo
-        echo "   dockerim unset"
-        echo "       Clears current container"
-        echo
-        echo "   dockerim logs/kill"
-        echo "       If run without a container ID, will use the current container"
-        echo
-        echo "   dockerim killall/rmall"
-        echo "       Will kill/remove all containers"
-        echo
-        echo "   dockerim current"
-        echo "       Will print the current container id"
-        echo
-        echo "Otherwise, this command will pass the command as is to docker CLI"
+        echo -e "Otherwise, dockerim will pass the command as is to docker CLI"
         echo
         echo
+        exit 0
         ;;
 esac
 

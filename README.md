@@ -24,7 +24,7 @@ alias docker="dockerim"
 
 * `dockerim run ...` Intercepts `docker run` command and updates the current container variable accordingly
 
-* `dockerim set` - Sets/Overrides the current container id. This can be either a complete new docker container id.
+* `dockerim set <id|index>` - Sets/Overrides the current container id. This can be either a complete new docker container id.
     - `dockerim set 48646005b86e` would set the current container to be `48646005b86e` 
     - `dockerim set 0` would set the current container id to first container found when running `docker ps`
 
@@ -33,6 +33,8 @@ alias docker="dockerim"
 * `dockerim logs` - Shows current container logs
 
 * `dockerim kill` - Kills current container
+
+* `dockerim rm` - Removed current container
 
 * `dockerim killall` - Kills **all** containers
 
