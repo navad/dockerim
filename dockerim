@@ -59,22 +59,22 @@ case "$1" in
         return
         ;;
     "help" | "")
-        echo "dockerim: docker IMproved"
+        echo "dockerim: docker IMproved (v0.1)"
         echo
         echo "Usage:"
-        echo "   docker set <ps index | container id> / docker run ..."
+        echo "   dockerim set <ps index | container id> / docker run ..."
         echo "       Sets current container. ex: 'docker set 0' will set the current container to the first one on PS"
         echo
-        echo "   docker unset"
+        echo "   dockerim unset"
         echo "       Clears current container"
         echo
-        echo "   docker logs/kill"
+        echo "   dockerim logs/kill"
         echo "       If run without a container ID, will use the current container"
         echo
-        echo "   docker killall/rmall"
+        echo "   dockerim killall/rmall"
         echo "       Will kill/remove all containers"
         echo
-        echo "   docker current"
+        echo "   dockerim current"
         echo "       Will print the current container id"
         echo
         echo "Otherwise, this command will pass the command as is to docker CLI"
