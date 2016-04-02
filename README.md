@@ -12,7 +12,7 @@ brew install https://raw.github.com/navad/dockerim/master/dockerim.rb --HEAD
 
 After installation, `dockerim` would be available as a shell command.
 
-For improved experience, Add `dockerim` as an alias to `docker` in your `.bashrc`/`.bash_profile`:
+For an improved experience, Add `dockerim` as an alias to `docker` in your `.bashrc`/`.bash_profile`:
 
 ```
 alias docker="dockerim"
@@ -22,7 +22,7 @@ alias docker="dockerim"
 
 `dockerim` adds the following commands:
 
-* `dockerim run ...` Intercepts `docker run` command and updates the current container variable accordingly
+* `dockerim run ...` - Intercepts `docker run` command and updates the current container variable accordingly
 
 * `dockerim set <id|index>` - Sets/Overrides the current container id. This can be either a complete new docker container id.
     - `dockerim set 48646005b86e` would set the current container to be `48646005b86e` 
