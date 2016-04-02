@@ -4,7 +4,11 @@ DOCKER_CLI=`(which docker)`
 
 case "$1" in
     "bash")
-        $DOCKER_CLI exec -it $LAST_CONTAINER_ID bash
+        if [ -z "$2" ]; then
+            $DOCKER_CLI exec -it $CURRENT_CONTAINER_ID bash
+        else
+            $DOCKER_CLI exec -it "$2" bash
+        fi
         return
         ;;
     "set")
@@ -14,7 +18,7 @@ case "$1" in
             export LAST_CONTAINER_ID="$2"
         fi
 
-        echo $LAST_CONTAINER_ID
+        echo $CURRENT_CONTAINER_ID
         return
         ;;
     "unset")
@@ -23,18 +27,18 @@ case "$1" in
         ;;
     "logs")
         if [ -z "$2" ]; then
-            $DOCKER_CLI logs $LAST_CONTAINER_ID
+            $DOCKER_CLI logs $CURRENT_CONTAINER_ID
             return
         fi
         ;;
     "run")
         export LAST_CONTAINER_ID=`$DOCKER_CLI "$@"`
-        echo $LAST_CONTAINER_ID
+        echo $CURRENT_CONTAINER_ID
         return
         ;;
     "kill")
         if [ -z "$2" ]; then
-            $DOCKER_CLI kill $LAST_CONTAINER_ID
+            $DOCKER_CLI kill $CURRENT_CONTAINER_ID
             return
         fi
         ;;
@@ -47,10 +51,10 @@ case "$1" in
         return
         ;;
     "current")
-        if [ -z $LAST_CONTAINER_ID ]; then
-            echo "No current container. use 'docker set <num>' or 'docker run ...' to set"
+        if [ -z $CURRENT_CONTAINER_ID ]; then
+            echo "No current container. use 'docker set <num|id>' or 'docker run ...' to set"
         else
-            echo $LAST_CONTAINER_ID
+            echo $CURRENT_CONTAINER_ID
         fi
         return
         ;;
