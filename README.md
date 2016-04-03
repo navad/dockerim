@@ -28,13 +28,13 @@ alias docker="dockerim"
     - `dockerim set 48646005b86e` would set the current container to be `48646005b86e` 
     - `dockerim set 0` would set the current container id to first container found when running `docker ps`
 
-* `dockerim bash [id]` - Starts an interactive bash session inside the current container or given id
+* `dockerim bash [id]` - Starts an interactive bash session inside the current container or given container id
 
 * `dockerim logs` - Shows current container logs
 
 * `dockerim kill` - Kills current container
 
-* `dockerim rm` - Removed current container
+* `dockerim rm` - Removes current container
 
 * `dockerim killall` - Kills **all** containers
 
